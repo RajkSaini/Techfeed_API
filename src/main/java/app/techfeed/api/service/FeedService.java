@@ -27,6 +27,16 @@ public class FeedService {
         Pageable pageable = PageRequest.of(page, size);
         return feedRepository.findAll(pageable);
     }
+    public Feed findByFeedId(String feedId) {
+
+        List<Feed> feeds= feedRepository.findFeedByFeedId(feedId);
+        System.out.println("feed =?" +feeds);
+        if(feeds.size()==0){
+            return null;
+        }
+        return feeds.get(0);
+    }
+
 
 
 }
