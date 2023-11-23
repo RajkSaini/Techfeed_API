@@ -18,4 +18,8 @@ public class CategoryService {
     public List<Categories> getCategories(){
        return categoriesRepository.findAll();
     }
+
+    public List<Categories> findByCategoryIdIn(String[] categoryIds){
+        return categoriesRepository.findByCategoryIdIn(categoryIds);
+    }
 }

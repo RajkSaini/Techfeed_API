@@ -1,5 +1,6 @@
 package app.techfeed.api.service;
 
+import app.techfeed.api.model.Categories;
 import app.techfeed.api.model.Feed;
 import app.techfeed.api.repository.FeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,14 +21,19 @@ public class FeedService {
         this.feedRepository = feedRepository;
     }
 
-    public Page<Feed> findFeedsByTag(String tag,int page, int size) {
+    public Page<Feed> findFeedsByTag(List<String> tags,int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return feedRepository.findByTagsContaining(tag,pageable);
+        return feedRepository.findByTagsInOrderByFeedIdDesc(tags,pageable);
     }
     public Page<Feed> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return feedRepository.findAll(pageable);
     }
+
+    public List<Feed> findAll() {
+        return feedRepository.findAll();
+    }
+
     public Feed findByFeedId(String feedId) {
 
         List<Feed> feeds= feedRepository.findFeedByFeedId(feedId);
@@ -36,7 +43,6 @@ public class FeedService {
         }
         return feeds.get(0);
     }
-
 
 
 }

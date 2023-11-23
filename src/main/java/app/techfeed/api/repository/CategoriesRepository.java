@@ -13,4 +13,6 @@ import java.util.List;
 public interface CategoriesRepository extends MongoRepository<Categories, String> {
     List<Categories> findAll();
 
+    List<Categories> findByCategoryIdIn(String[] categoryIds);
+
 }
